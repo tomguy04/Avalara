@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{!-- <link rel="stylesheet" href="https://assets.avalara.com/s-/1.0.0/s-.min.css"> --}}
+    <link rel="icon" type="image/png" sizes="16x16" href="https://assets.avalara.com/s-/1.1.0/images/app-icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://assets.avalara.com/s-/1.1.0/images/app-icon-32x32.png">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<s-container>
+    <s-row>
+        <s-col center span="6 md-10">
+            <h1>Tax Calculator</h1>
+            <form name = 'taxForm' action='/submit-form' method='POST'>
+                <fieldset>
+                    <label>Address</label>
+                    <input type="text" id='addressLine1' name='addressLine1' placeholder="Line 1">
+                    <select id="state" name = 'state'>
+                        <option value="" disabled selected>State</option>
+                        <option value="Washington">Washington</option>
+                        <option value="New York">New York</option>
+                        <option value="California">California</option>
+                        <option value="Florida">Florida</option>
+                    </select>
+                    <input type="text" id='zipCode' name='zipCode' placeholder="Zip Code">
+                </fieldset>
+                <fieldset>
+                    <label>Amount</label>
+                    <input type="text" id = 'amount' name='amount' placeholder="$ .00">
+                </fieldset>
+
+                <button type="submit">Calculate</button>
+                <p id='tax'>Tax (%) $</p>
+                <p id='total'>Total $</p>
+            </form>
+
+        </s-col>
+    </s-row>
+</s-container>
+</body>
+</html>
+
+
