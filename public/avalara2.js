@@ -21,6 +21,10 @@ $(document).ready(function(){
     // click on button submit
     $('#taxForm').submit( function(){
         event.preventDefault()
+        $('#errorMessages').html('');
+        $('#tax').html('');
+        $('#taxAmount').html('');
+        $('#total').html('');
         // send ajax
         $.ajax  ({
             url: 'https://sandbox-rest.avatax.com/api/v2/taxrates/byaddress?', // url where to submit the request
@@ -34,22 +38,24 @@ $(document).ready(function(){
                 console.log(`success`)
                 console.log(`total rate ${result.totalRate}`);
                 console.log(`rates ${JSON.stringify(result.rates)}`);
-                $('#tax').append(result.totalRate)
+                $('#tax').html(result.totalRate)
                 data = $("#taxForm").serializeArray()
                 amount = data[4].value
                 console.log(amount);
-                $('#taxAmount').append(amount*(result.totalRate));
+                $('#taxAmount').html(amount*(result.totalRate));
                 $('#total').html(amount*(1+result.totalRate))
                 taxForm.reset();
             },
             error: function(xhr, resp, text) {
-                console.log(xhr, resp, text);
+                console.log(`error1--->${JSON.stringify(xhr)}`) 
+                console.log(`error1--->${JSON.stringify(xhr.responseJSON.error.details[0].description)}`) 
+                let errorText = JSON.stringify(xhr.responseJSON.error.details[0].description);
+                $('#errorMessages').html(errorText);
+                // console.log(`error1--->${xhr.error}`) 
+                console.log(`error2--->${JSON.stringify(resp)}`) 
+                console.log(`error3--->${JSON.stringify(text)}`);
             }
         })
-        
-        // data = $("#taxForm").serializeArray()
-        // console.log(data[4].value);
-       
     });
     
 });
