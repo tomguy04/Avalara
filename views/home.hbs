@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{!-- <link rel="stylesheet" href="https://assets.avalara.com/s-/1.0.0/s-.min.css"> --}}
-    <link rel="icon" type="image/png" sizes="16x16" href="https://assets.avalara.com/s-/1.1.0/images/app-icon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://assets.avalara.com/s-/1.1.0/images/app-icon-32x32.png">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
 <s-container>
     <s-row>
         <s-col center span="6 md-10">
-            <h1>Tax Calculator</h1>
+            <div class="text-center"><h1>Tax Calculator</h1></div>
             {{!-- <form name = 'taxForm' id = 'taxForm' action='/submit-form' method='POST'> --}}
+            <s-box>
             <form name = 'taxForm' id = 'taxForm' autocomplete="false">
                 <fieldset>
                     <label>Address</label>
-                    <input type="text" id='addressLine1' name='addressLine1' placeholder="Line 1" autofocus required autocomplete="false" value = '1'>
-                    <select id="state" name = 'state' required value='Washington'>
+                    <input type="text" id='addressLine1' name='addressLine1' placeholder="Line 1" autofocus required>
+                    <select id="state" name = 'state' required>
                         <option value="" disabled selected >State</option>
                         <option value="Washington">Washington</option>
                         <option value="New York">New York</option>
@@ -29,8 +28,10 @@
 
                     <input type="text" id='postalCode' required name='postalCode' placeholder="Zip Code" 
                     pattern='^[0-9]{5}$'
-                    oninvalid="this.setCustomValidity('Please enter a 5 digit zip code')"
-                    oninput="setCustomValidity('')" value='11111'>
+                    {{!-- oninvalid="this.setCustomValidity('Please enter a 5 digit zip code')"
+                    oninput="setCustomValidity('')"  --}}
+                    >
+                    <div.input-msg><span id='errorMessages'></span></div.input-msg>
 
                     <input type="hidden" id='country' name='country' value="US" required>
                 </fieldset>
@@ -39,10 +40,11 @@
                     <input type="text" id = 'amount' name='amount' placeholder="$ .00">
                 </fieldset>
 
-                <button type="submit" id='submit'>Calculate</button>
-                <p id='errorMessages'></p>
-                <p>Tax(<span id='tax'> </span>%)<span>$</span><span id='taxAmount'></span></p>
-                <p>Total $<span id='total'></span></p>
+                <button type="submit" id='submit' class='primary'>Calculate&nbsp; &nbsp; <s-icon name='product'></s-icon></button>
+                {{!-- <p id='errorMessages'></p> --}}
+                <h4>Tax (<span id='tax'></span>%) <span>$</span><span id='taxAmount'></span></h4>
+                <h4>Total $<span id='total'></span></h4>
+                </s-box>
             </form>
             
 
