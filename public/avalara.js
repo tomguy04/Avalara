@@ -47,7 +47,7 @@ var states = [
     {StateId:"Vermont",Name:"Vermont"},
     {StateId:"Virginia",Name:"Virginia"},
     {StateId:"Washington",Name:"Washington"},
-    {StateId:"WestVirginia",Name:"WestVirginia"},
+    {StateId:"WestVirginia",Name:"West Virginia"},
     {StateId:"Wisconsin",Name:"Wisconsin"},
     {StateId:"Wyoming",Name:"Wyoming"},
             
@@ -59,10 +59,10 @@ $(document).ready(function(){
     for (var i = 0; i < states.length; i++) {
         var option = document.createElement("OPTION");
 
-        //Set Customer Name in Text part.
+        //Set State in Text part.
         option.innerHTML = states[i].Name;
 
-        //Set CustomerId in Value part.
+        //Set StateId in Value part.
         option.value = states[i].StateId;
 
         //Add the Option element to DropDownList.
@@ -72,39 +72,44 @@ $(document).ready(function(){
     // click on button submit
     $('#taxForm').submit( function(){
         event.preventDefault()
+        //clear out old calculations and error messages
         $('#errorMessages').html('');
         $('#tax').html('');
         $('#taxAmount').html('');
         $('#total').html('');
         // send ajax
         $.ajax  ({
-            url: 'https://sandbox-rest.avatax.com/api/v2/taxrates/byaddress?', // url where to submit the request
-            type : "GET", // type of action POST || GET
+            url: 'https://sandbox-rest.avatax.com/api/v2/taxrates/byaddress?', 
+            type : "GET", 
             headers: {
                 "Authorization": "Basic Z2xlbnJnQGdtYWlsLmNvbTp0b21ndXkwNEF2YWxhckA="
             },
-            dataType : 'json', // data type
-            data : $("#taxForm").serialize(), // post data || get data
+            dataType : 'json', 
+            data : $("#taxForm").serialize(), 
+            //if the api call succeeds...
             success : function(result) {
+                //some status and raw api return data in the console
                 console.log(`success`)
                 console.log(`total rate ${result.totalRate}`);
                 console.log(`rates ${JSON.stringify(result.rates)}`);
+                //show the tax rate
                 $('#tax').html(result.totalRate)
+                //get the amount in order to apply the tax rate
                 data = $("#taxForm").serializeArray()
                 amount = data[4].value
-                console.log(amount);
+                //show the amount of tax to be applied
+                //show the grand total, tax plus amount entered
                 $('#taxAmount').html((amount*(result.totalRate)).toFixed(2));
                 $('#total').html((amount*(1+result.totalRate)).toFixed(2));
                 taxForm.reset();
             },
+            //handle and show errors from the api, in this case only invalid 5 digit postal codes were not handled on the front end, so they are captured by the api on the back end and the appropriate error is shown.
             error: function(xhr, resp, text) {
+                //show entire error in the console
                 console.log(`error1--->${JSON.stringify(xhr)}`) 
-                console.log(`error1--->${JSON.stringify(xhr.responseJSON.error.details[0].description)}`) 
                 let errorText = JSON.stringify(xhr.responseJSON.error.details[0].description);
+                //show the error to the user.
                 $('#errorMessages').html(errorText);
-                // console.log(`error1--->${xhr.error}`) 
-                console.log(`error2--->${JSON.stringify(resp)}`) 
-                console.log(`error3--->${JSON.stringify(text)}`);
             }
         })
     });

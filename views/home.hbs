@@ -1,10 +1,12 @@
+{{!-- This is a web page to display the tax rat, amount of tax and and grand total (dollar amount plus applicable tax) based on an address and dollar amount.
+This is the use in the US only --}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{!-- <link rel="stylesheet" href="https://assets.avalara.com/s-/1.0.0/s-.min.css"> --}}
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
@@ -13,43 +15,32 @@
     <s-row>
         <s-col center span="6 md-10">
             <div class="text-center"><h1>Tax Calculator</h1></div>
-            {{!-- <form name = 'taxForm' id = 'taxForm' action='/submit-form' method='POST'> --}}
             <s-box>
+            {{!-- Form to collect address and dollar amount --}}
             <form name = 'taxForm' id = 'taxForm' autocomplete="false" >
                 <fieldset>
                     <label>Address</label>
                     <input type="text" id='addressLine1' name='addressLine1' placeholder="Line 1" autofocus required>
-                    {{!-- <select id="state" name = 'state' required></select> --}}
                     <select id="state" name = 'state' required>
                         <option value="" disabled selected >State</option>
-                        {{!-- <option value="Washington">Washington</option>
-                        <option value="New York">New York</option>
-                        <option value="California">California</option>
-                        <option value="Florida">Florida</option> --}}
                     </select>
-
                     <input type="text" id='postalCode' required name='postalCode' placeholder="Zip Code" 
                     pattern='^[0-9]{5}$'
                     oninvalid="this.setCustomValidity('Please enter a 5 digit zip code')"
                     oninput="setCustomValidity('')" 
                     >
                     <div.input-msg><span id='errorMessages'></span></div.input-msg>
-
                     <input type="hidden" id='country' name='country' value="US" required>
                 </fieldset>
                 <fieldset>
                     <label>Amount</label>
                     <input type="number" id = 'amount' name='amount' min= "0" step = "any" placeholder="$ .00">
                 </fieldset>
-
                 <button type="submit" id='submit' class='primary' >Calculate&nbsp; &nbsp; <s-icon name='product'></s-icon></button>
-                {{!-- <p id='errorMessages'></p> --}}
                 <h4>Tax (<span id='tax'></span>%) <span>$</span><span id='taxAmount'></span></h4>
                 <h4>Total $<span id='total'></span></h4>
                 </s-box>
             </form>
-            
-
         </s-col>
     </s-row>
 </s-container>
