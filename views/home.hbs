@@ -8,28 +8,30 @@
     <title>Document</title>
 </head>
 <body>
+
 <s-container>
     <s-row>
         <s-col center span="6 md-10">
             <div class="text-center"><h1>Tax Calculator</h1></div>
             {{!-- <form name = 'taxForm' id = 'taxForm' action='/submit-form' method='POST'> --}}
             <s-box>
-            <form name = 'taxForm' id = 'taxForm' autocomplete="false">
+            <form name = 'taxForm' id = 'taxForm' autocomplete="false" >
                 <fieldset>
                     <label>Address</label>
                     <input type="text" id='addressLine1' name='addressLine1' placeholder="Line 1" autofocus required>
+                    {{!-- <select id="state" name = 'state' required></select> --}}
                     <select id="state" name = 'state' required>
                         <option value="" disabled selected >State</option>
-                        <option value="Washington">Washington</option>
+                        {{!-- <option value="Washington">Washington</option>
                         <option value="New York">New York</option>
                         <option value="California">California</option>
-                        <option value="Florida">Florida</option>
+                        <option value="Florida">Florida</option> --}}
                     </select>
 
                     <input type="text" id='postalCode' required name='postalCode' placeholder="Zip Code" 
                     pattern='^[0-9]{5}$'
-                    {{!-- oninvalid="this.setCustomValidity('Please enter a 5 digit zip code')"
-                    oninput="setCustomValidity('')"  --}}
+                    oninvalid="this.setCustomValidity('Please enter a 5 digit zip code')"
+                    oninput="setCustomValidity('')" 
                     >
                     <div.input-msg><span id='errorMessages'></span></div.input-msg>
 
@@ -37,10 +39,10 @@
                 </fieldset>
                 <fieldset>
                     <label>Amount</label>
-                    <input type="text" id = 'amount' name='amount' placeholder="$ .00">
+                    <input type="number" id = 'amount' name='amount' min= "0" step = "any" placeholder="$ .00">
                 </fieldset>
 
-                <button type="submit" id='submit' class='primary'>Calculate&nbsp; &nbsp; <s-icon name='product'></s-icon></button>
+                <button type="submit" id='submit' class='primary' >Calculate&nbsp; &nbsp; <s-icon name='product'></s-icon></button>
                 {{!-- <p id='errorMessages'></p> --}}
                 <h4>Tax (<span id='tax'></span>%) <span>$</span><span id='taxAmount'></span></h4>
                 <h4>Total $<span id='total'></span></h4>
